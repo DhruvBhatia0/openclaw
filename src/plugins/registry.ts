@@ -12,6 +12,7 @@ import type { HookEntry } from "../hooks/types.js";
 import { resolveUserPath } from "../utils.js";
 import { buildPluginApi } from "./api-builder.js";
 import { registerPluginCommand, validatePluginCommandDefinition } from "./command-registration.js";
+import { registerCompactionProvider } from "./compaction-provider.js";
 import type { PluginActivationSource } from "./config-state.js";
 import { normalizePluginHttpPath } from "./http-path.js";
 import { findOverlappingPluginHttpRoute } from "./http-route-overlap.js";
@@ -1056,6 +1057,7 @@ export function createPluginRegistry(registryParams: PluginRegistryParams) {
                   });
                 }
               },
+              registerCompactionProvider: (provider) => registerCompactionProvider(provider),
               registerMemoryPromptSection: (builder) => {
                 if (!hasKind(record.kind, "memory")) {
                   pushDiagnostic({
